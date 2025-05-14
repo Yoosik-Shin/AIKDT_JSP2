@@ -44,7 +44,7 @@ public class LoginManager {
 		for (int i = 0; i < userIdList.size(); i++) {
 			String id = userIdList.get(i);
 			String sid = loginUsers.get(id);
-			if (sessionId.equals(id)) {
+			if (sessionId.equals(sid)) {
 				loginUsers.remove(id);
 			}
 			
