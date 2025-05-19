@@ -40,7 +40,7 @@
 				                        </div>
 				                        <div class="d-grid gap-2">
 				                            <button type="submit" class="btn btn-primary">로그인</button>
-				                            <a href="${ root }/users/join.jsp" class="btn btn-success">회원가입</a>
+				                            <a href="${ root }/join.jsp" class="btn btn-success">회원가입</a>
 				                        </div>
 				                    </div>
 				                </div>

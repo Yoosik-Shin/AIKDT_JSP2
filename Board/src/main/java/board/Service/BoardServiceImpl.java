@@ -67,8 +67,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public boolean delete(Board board) {
 		int result = 0;
+		String id = board.getId();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
 		try {
-			result = boardDAO.delete(board);
+			result = boardDAO.deleteBy(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -81,13 +84,29 @@ public class BoardServiceImpl implements BoardService {
 		Board board = null;
 		
 		try {
-			Map<Object, Object> map = new HashMap<>();
+			Map<String, Object> map = new HashMap<>();
 			map.put("id", id);
 			board = boardDAO.selectBy(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return board;
+	}
+
+	@Override
+	public boolean updateById(Board board) {
+		int result = 0;
+		String id = board.getId();
+		Board originBoard = selectById(id);
+		int no = originBoard.getNo();
+		board.setNo(no);
+		try {
+			result = boardDAO.update(board);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result > 0;
 	}
 
 	

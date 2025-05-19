@@ -29,7 +29,7 @@
 		
 					<div class="d-grid gap-2 mt-4">
 						<button type="submit" class="btn btn-primary">등록</button>
-						<a href="<%= root %>/board/list" class="btn btn-secondary">목록</a>
+						<a href="<%= root %>/board/list.jsp" class="btn btn-secondary">목록</a>
 					</div>
 				</form>
 			</div>

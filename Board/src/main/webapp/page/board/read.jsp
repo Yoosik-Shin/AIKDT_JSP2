@@ -35,7 +35,7 @@
 					</div>
 		
 					<div class="d-flex justify-content-end mt-4">
-						<a href="<%= root %>/board/update" class="btn btn-primary">수정</a>
+						<a href="<%= root %>/board/update.jsp?id=${ board.id }" class="btn btn-primary">수정</a>
 						<a href="<%= root %>/board/list" class="btn btn-secondary">목록</a>
 					</div>
 				</form>

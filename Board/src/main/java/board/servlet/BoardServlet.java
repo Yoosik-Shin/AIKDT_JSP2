@@ -2,6 +2,7 @@ package board.servlet;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import board.DTO.Board;
 import board.DTO.Users;
@@ -28,6 +29,7 @@ public class BoardServlet extends HttpServlet {
 		String path = request.getPathInfo();
 		String page = "";
 		
+		// 게시글 목록
 		if (path.equals("/list") || path.equals("/list.jsp")) {
 			List<Board> boardList = boardService.list();
 			request.setAttribute("boardList", boardList);
@@ -52,6 +54,16 @@ public class BoardServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
 			dispatcher.forward(request, response);
 		}
+		
+		// 게시글 수정
+		if (path.equals("/update") || path.equals("/update.jsp")) {
+			String id = request.getParameter("id");
+			Board board = boardService.selectById(id);
+			request.setAttribute("board", board);
+			page = "/page/board/update.jsp";
+			RequestDispatcher dispatcher = request.getRequestDispatcher(page);
+			dispatcher.forward(request, response);
+		}
 	}
 
 	
@@ -68,7 +80,8 @@ public class BoardServlet extends HttpServlet {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			int userNo = ((Users) request.getSession().getAttribute("loginUser")).getNo();
-			Board board = Board.builder().title(title)
+			Board board = Board.builder().id(UUID.randomUUID().toString())
+										 .title(title)
 										 .content(content)
 										 .userNo(userNo)
 										 .build();
@@ -79,6 +92,43 @@ public class BoardServlet extends HttpServlet {
 			}
 			else {
 				response.sendRedirect(root + "/board/create.jsp?error=true");
+			}
+		}
+		
+		// 게시글 수정
+		if (path.equals("/update")) {
+			String id = request.getParameter("id");
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			int userNo = ((Users) request.getSession().getAttribute("loginUser")).getNo();
+			Board board = Board.builder().id(id)
+										 .title(title)
+										 .content(content)
+										 .userNo(userNo)
+										 .build();
+			
+			boolean result = boardService.updateById(board);
+			if (result) {
+				response.sendRedirect(root + "/board/list");
+			}
+			else {
+				response.sendRedirect(root + "/board/update.jsp?error=true");
+			}
+		}
+		
+		
+		// 게시글 삭제
+		if (path.equals("/delete")) {
+			String id = request.getParameter("id");
+			Board board = Board.builder().id(id)
+										 .build();
+			
+			boolean result = boardService.delete(board);
+			if (result) {
+				response.sendRedirect(root + "/board/list");
+			}
+			else {
+				response.sendRedirect(root + "/board/update.jsp?error=true");
 			}
 		}
 	}

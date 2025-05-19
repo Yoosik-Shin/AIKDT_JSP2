@@ -27,7 +27,7 @@ public class UserServlet extends HttpServlet {
     	// url : /users/idCheko
     	String root = request.getContextPath();
     	String path = request.getPathInfo();	// idCheck
-    	System.out.println("asdfasdfasdfasdfasdfsdf");
+    	System.out.println("회원가입 어디갔어");
     	// /idCheck - 아이디 중복 확인
     	if ( path.equals("/idCheck")) {
 			System.out.println("아이디 중복 확인");
@@ -53,6 +53,7 @@ public class UserServlet extends HttpServlet {
 		String root = request.getContextPath();			// /Board
 //		String path = uri.substring(root.length());		// /join
 		String path = request.getPathInfo();	// idCheck
+		System.out.println("회원가입 어디갔어");
 		
 		// /join - 회원가입
 		if (path.equals("/join")) {
